@@ -1,0 +1,25 @@
+﻿Dependancy Inversion principle
+================================
+1-High level modules should not depend on low level modules
+  both should depend on abstractions
+EXPLAIN:
+=========
+ -the controller ==>high level module
+must not depend on:
+ -the unit of work ==>low level module
+both should depend on:
+ -abstraction ==> IUnitOfWork
+###############################################
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+###############################################
+2-Abstractions should not depend on details,Details should
+  depend on abstractions!
+EXPLAIN:
+============
+ -IUnitOfWork ==> is an abstraction
+should not depend on
+ -{name}Repository ===>whic is a detail	
+but should depend on
+ -I{name}Repository ===>an abstraction
+which is impelemented by
+ -{name}Repository ===> a detail!

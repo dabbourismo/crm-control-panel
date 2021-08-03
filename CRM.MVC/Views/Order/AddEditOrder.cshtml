@@ -1,0 +1,225 @@
+﻿@model CRM.MVC.ViewModels.OrdersAddDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<head>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+
+@using (Html.BeginForm("AddEditOrder", "Order", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ClientId)
+
+    <div class="container PanelContainer">
+        <div class="panel panel-primary">
+            <div class="panel-heading">بيانات الاوردر</div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", autofocus = "autofocus", style = "width:500px;resize:none;" } })
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ServiceType, new { @class = "control-label" })
+                            @Html.EnumDropDownListFor(model => model.ServiceType, "اختر نوع الخدمة", new { @class = "form-control", role = "menu", datatoggle = "dropdown" })
+                            @Html.ValidationMessageFor(model => model.ServiceType)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Price, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @id = "Price", @class = "form-control", @maxlength = "1000", @type = "number" } })
+                            @Html.ValidationMessageFor(model => model.Price)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Discount, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @id = "Discount", @class = "form-control", @maxlength = "1000", @type = "number" } })
+                            @Html.ValidationMessageFor(model => model.Discount)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MaxExpense, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.MaxExpense, new { htmlAttributes = new { @id = "MaxExpense", @class = "form-control", @maxlength = "1000", @type = "number" } })
+                            @Html.ValidationMessageFor(model => model.MaxExpense)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Required, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Required,
+                               new { htmlAttributes = new { @id = "Required", @class = "form-control", @maxlength = "1000", @type = "number", disabled = "disabled" } })
+
+                            @Html.ValidationMessageFor(model => model.Required)
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Payed, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Payed,
+                           new { htmlAttributes = new { @id = "Payed", @class = "form-control", @maxlength = "1000", @type = "number" } })
+
+                            @Html.ValidationMessageFor(model => model.Payed)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Remaining, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Remaining,
+                           new { htmlAttributes = new { @id = "Remaining", @class = "form-control", @maxlength = "1000", @type = "number" , disabled = "disabled" } })
+
+                            @Html.ValidationMessageFor(model => model.Remaining)
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OrderDate, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.OrderDate)
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DeliveryDate, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DeliveryDate)
+                        </div>
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    @{
+                        if (Model.Id == 0)
+                        {
+                            <input type="submit" value="اضافة" class="btn btn-success" style="width:100%" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="تعديل" class="btn btn-success" style="width:100%" />
+                        }
+                    }
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/Main.js"></script>
+<script>
+
+    $('#Price,#Discount').on('keyup blur', calcRequired);
+
+    //$("#Price").keyup(calcRequired);
+    //$("#Discount").keyup(calcRequired);
+
+    //$("#Price").blur(calcRequired);
+    //$("#Discount").blur(calcRequired);
+
+    function calcRequired() {
+        var price = parseFloat($('#Price').val(), 10);
+        var discount = parseFloat($("#Discount").val(), 10);
+
+        SetNumericValueToZeroIfEmpty('#Price');
+        SetNumericValueToZeroIfEmpty('#Discount');
+       
+        var required = price - discount;
+        console.log(required);
+ 
+        if (isNaN(required)) {
+            console.log('here nan');
+            $('#Required,#MaxExpense').val(0.0);
+            //$('#MaxExpense').val(0.0);
+        }
+        else {
+            console.log('here not nan');
+            $('#Required').val(required);
+            $('#MaxExpense').val(required * 0.3);
+        }
+        DiscountLessThanOrEqualPrice();
+    }
+    //====================================================
+    $('#Required,#Payed').on('keyup focus', calcRemaining);
+
+    //$("#Required").keyup(calcRemaining);
+    //$("#Payed").keyup(calcRemaining);
+    //$("#Payed").focus(calcRemaining);
+    function calcRemaining() {
+        var required = parseFloat($('#Required').val(), 10);
+        var payed = parseFloat($("#Payed").val(), 10);
+
+        SetNumericValueToZeroIfEmpty('#Required');
+        SetNumericValueToZeroIfEmpty('#Payed');
+
+        var remaining = required - payed;
+        if (isNaN(remaining)) {
+            $('#Remaining').val(0);
+        }
+        else {
+            $('#Remaining').val(remaining);
+        }
+        PayedLessThanOrEqualRequired();
+    }
+     //====================================================
+   
+    function DiscountLessThanOrEqualPrice() {
+        var price = parseFloat($('#Price').val(), 10);
+        var discount = parseFloat($("#Discount").val(), 10);
+        if (discount > price) {
+            $("#Discount").val(price);
+            $("#MaxExpense,#Required").val(0);
+            //$("#Required").val(0);
+        }
+    }
+    function PayedLessThanOrEqualRequired() {
+        var payed = parseFloat($('#Payed').val(), 10);
+        var required = parseFloat($("#Required").val(), 10);
+        if (payed > required) {
+            $("#Payed").val(required);
+            $("#Remaining").val(0);
+        }
+    }
+</script>

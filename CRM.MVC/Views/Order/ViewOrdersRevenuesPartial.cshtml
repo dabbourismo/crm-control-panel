@@ -1,0 +1,124 @@
+﻿@{
+    int orderid = (int)this.ViewData["orderId"];
+    bool isdone = (bool)this.ViewData["isdone"];
+}
+@*@{
+        Layout = null;
+    }*@
+
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Adlink CRM</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*for datatables*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Almarai&display=swap" rel="stylesheet">
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet">
+</head>
+@{
+    if (isdone)
+    {
+        <a class="btn btn-primary"
+           id="disabledAddButton"
+           style="margin-bottom:10px;margin-top:15px;">
+            اضافة دفع <i class="fa fa-plus"> </i>
+        </a>
+    }
+    else
+    {
+        <a class="btn btn-primary" id="AddButton" style="margin-bottom:10px;margin-top:15px;"
+           onclick="PopupForm('@Url.Action("AddEditOrderRevenue", "Order",new {orderId=orderid })')">
+            اضافة دفع <i class="fa fa-plus"> </i>
+        </a>
+    }
+}
+
+<table id="revTable" class="table table-bordered table-hover" style="width:100%">
+    <thead class="thead-light">
+        <tr style="background-color: #c3e6cb;">
+            <th></th>
+            <th>ملاحظة</th>
+            <th>المدفوع</th>
+            <th>تاريخ الدفع</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+<!--#region scripts-->
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@*for datatables*@
+<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+
+@*buttons*@
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/notify.min.js"></script>
+<script src="~/Scripts/Main.js"></script>
+
+
+<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+<!--#endregion-->
+<script>
+    function notify(element) {
+        $(element).notify("هذا الاوردر منتهي",
+            { position: "top right", className: 'success', autoHideDelay: 3000 }
+        );
+    }
+
+    $(function () {
+        $('#disabledAddButton').click(
+            function () { notify($(this)) }
+        )
+    })
+</script>
+
+<script>
+        var buttonColumn = {
+            "data": "Id",
+            "render": RenderActionButtonsAdmin,
+            "orderable": false,
+            "searchable": false,
+            "width": "30px"
+        }
+        function RenderActionButtonsAdmin(Id) {
+            return "<a class='btn btn-danger' style='margin-right:1px;' onclick=Delete('@Url.Action("DeleteRevenue", "Order")/" + Id + "','الدفع؟')><i class='fa fa-trash'></i></a>"
+        };
+
+         $(document).ready(
+             GetDataTable('revTable', '@Url.Action("ViewOrdersRevenues", "Order",new { orderId = orderid })',
+                [
+                    { "data": null,width: "4%" },
+                    { "data": "OptionalNote" },
+                    { "data": "Amount" },
+                    {
+                        "data": "RevenueDate",
+                        render: convertJsonDateToShortDate
+                    },
+                    buttonColumn
+                ])
+    );
+
+</script>
+<script>
+    AnimateButton('AddButton');
+</script>
+

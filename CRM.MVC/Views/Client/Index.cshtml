@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "العملاء";
+}
+
+<div class="gradient-Header animate__animated animate__fadeInLeft">
+    <div class="gradient-child">
+        <h1>العملاء</h1>
+    </div>
+</div>
+
+<a class="btn btn-primary" id="AddButton" style="margin-bottom:10px;margin-top:15px;" onclick="PopupForm('@Url.Action("AddEditClient","Client")')">
+    عميل جديد <i class="fa fa-plus"> </i>
+</a>
+
+
+<table id="clientsTable" class="table table-bordered table-hover" style="width:100%">
+    <thead class="thead-light">
+        <tr class="rows">
+            <th></th>
+            <th>الاسم</th>
+            <th>السبب</th>
+            <th>النوع</th>
+            <th>المبلغ</th>
+            <th>تليفون 2</th>
+            <th>المدينة</th>
+            <th>التقييم</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+
+
+@section scripts{
+    <script>
+
+        var buttonColumn = {
+            "data": "Id",
+            "render": RenderActionButtonsAdmin,
+            "orderable": false,
+            "searchable": false,
+            "width": "200px"
+        }
+        function RenderActionButtonsAdmin(Id) {
+            return "<a class='btn btn-info' style = 'margin-right:1px;' onclick=Redirect('@Url.Action("ViewOrders", "Order")/" + Id + "') > <i class='fa fa-list' aria-hidden='true'></i> الاوردرات </a >\
+                    <a class='btn btn-success' style='margin-right:4px;' onclick=PopupForm('@Url.Action("AddEditClient", "Client")/" + Id + "')><i class='fa fa-pencil'></i></a>\
+                    <a class='btn btn-danger' style='margin-right:1px;' onclick=Delete('@Url.Action("DeleteClient", "Client")/" + Id + "','العميل؟')><i class='fa fa-trash'></i></a>"
+
+        };
+
+        $(document).ready(
+            GetDataTable('clientsTable', '/Client/ViewAllClients',
+                [
+                    { "data": null,width: "4%" },
+                    { "data": "Name" },
+                    { "data": "Speciality"},
+                    { "data": "Company" },
+                    { "data": "Phone1"},
+                    { "data": "Phone2" },
+                    { "data": "City" },
+                    { "data": "Rating" },
+                    buttonColumn
+                ])
+        );
+    </script>
+    <script>
+        AnimateButton2('AddButton');
+    </script>
+
+}

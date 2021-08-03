@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "مصروفات الشركة";
+}
+
+<div class="gradient-Header animate__animated animate__fadeInLeft">
+    <div class="gradient-child">
+        <h1>مصروفات الشركة</h1>
+    </div>
+</div>
+
+<a class="btn btn-primary" id="AddButton" style="margin-bottom:10px;margin-top:15px;" onclick="PopupForm('@Url.Action("AddEditCompanyExpense","Company")')">
+    اضافة مصروف <i class="fa fa-plus"> </i>
+</a>
+
+<table id="expensesTable" class="table table-bordered table-hover" style="width:100%">
+    <thead class="thead-light">
+        <tr class="rows">
+            <th></th>
+            <th>الاسم</th>
+            <th>السبب</th>
+            <th>النوع</th>
+            <th>المبلغ</th>
+            <th>التاريخ</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+@section scripts{
+    <script>
+        var buttonColumn = {
+            "data": "Id",
+            "render": RenderActionButtonsAdmin,
+            "orderable": false,
+            "searchable": false,
+            "width": "100px"
+        }
+        function RenderActionButtonsAdmin(Id) {
+            return "<a class='btn btn-success' style='margin-right:4px;' onclick=PopupForm('@Url.Action("AddEditCompanyExpense", "Company")/" + Id + "')><i class='fa fa-pencil'></i></a>\
+                    <a class='btn btn-danger' style='margin-right:1px;' onclick=Delete('@Url.Action("DeleteExpense", "Company")/" + Id + "','المصروف؟')><i class='fa fa-trash'></i></a>"
+        };
+
+        $(document).ready(
+            GetDataTable('expensesTable', '/Company/ViewAllCompanyExpenses',
+                [
+                    { "data": null, width: "4%" },
+                    { "data": "Name" },
+                    {"data": "Reason"},
+                    {
+                        "data": "ExpenseType",
+                        render: RenderType
+                    },
+                    { "data": "Amount" },
+                    {
+                        "data": "ExpenseDate",
+                        render: convertJsonDateToShortDate
+                    },
+                    buttonColumn
+                ])
+        );
+        function RenderType(Reason) {
+            if (Reason == 1) { return '<h4><span class="label label-primary badge-pill">فواتير</span></h4>'; }
+            else if (Reason == 2) { return '<h4><span class="label label-success badge-pill">مرتبات</span></h4>'; }
+            else if (Reason == 3) { return '<h4><span class="label label-danger badge-pill">اصول</span></h4>'; }
+        };
+    </script>
+    <script>
+        AnimateButton2('AddButton');
+    </script>
+    <script>
+        //dont forget to include select css file and js
+        var table = $('#expensesTable').DataTable();
+        table.on('select', function (e, dt, type, indexes) {
+            if (type === 'row') {
+                var data = table.rows(indexes).data().pluck('Id');
+                console.log(data[0]);
+                // do something with the ID of the selected items
+            }
+        });
+    </script>
+}

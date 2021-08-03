@@ -1,0 +1,107 @@
+﻿@model CRM.MVC.ViewModels.OrderExpensesShowDto
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<head>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+
+
+@using (Html.BeginForm("AddEditOrderExpense", "Order", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.OrderId)
+
+    <div class="container PanelContainer" style="width:500px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">اضافة مصروف</div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Reason, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Reason, new { htmlAttributes = new {
+                           @id = "Reason",
+                           @class = "form-control",
+                           autofocus = "autofocus" } })
+
+                            @Html.ValidationMessageFor(model => model.Reason)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ExpenseType, new { @class = "control-label" })
+
+                            @Html.EnumDropDownListFor(model => model.ExpenseType, "اختر نوع المصروف",
+                           new { @class = "form-control", role = "menu", datatoggle = "dropdown" })
+
+                            @Html.ValidationMessageFor(model => model.ExpenseType)
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Amount, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Amount, new
+                               {
+                                   htmlAttributes = new
+                                   {
+                                       @id = "Amount",
+                                       @class = "form-control",
+                                       @maxlength = "1000",
+                                       @type = "number"
+                                   }
+                               })
+
+                            @Html.ValidationMessageFor(model => model.Amount)
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ExpenseDate, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.ExpenseDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(model => model.ExpenseDate)
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        @{
+                            if (Model.Id == 0)
+                            {
+                                <input type="submit" value="اضافة" class="btn btn-success" style="width:100%" />
+                            }
+                            else
+                            {
+                                <input type="submit" value="تعديل" class="btn btn-success" style="width:100%" />
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

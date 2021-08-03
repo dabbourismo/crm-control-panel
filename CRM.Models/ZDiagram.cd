@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CRM.Models.Client">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAIAAAAAAQAAAAAAAACAAAAJAACAAA=</HashCode>
+      <FileName>Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM.Models.Service" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAQACAAAAAAAAAAQAAAAAAAAAQQAAAAAAAAA=</HashCode>
+      <FileName>Service.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM.Models.Order">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KAACAAAAAQEAAAAAhAAAAAQAAAAAAAAAAwAAAAAAAAU=</HashCode>
+      <FileName>Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM.Models.OrderRevenue">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAECAAAAAAAAAgAAAAAAAAAAAAAAAAAACAAAAABAAAA=</HashCode>
+      <FileName>OrderRevenue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM.Models.OrderExpense">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAECAABAAAACAAIAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>OrderExpense.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM.Models.CompanyExpense">
+    <Position X="9" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAACAAIAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>CompanyExpense.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

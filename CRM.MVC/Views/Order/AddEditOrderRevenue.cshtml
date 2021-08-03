@@ -1,0 +1,210 @@
+﻿@model CRM.MVC.ViewModels.OrderRevenuesAddDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<head>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+
+@using (Html.BeginForm("AddEditOrderRevenue", "Order", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.OrderId)
+
+    <div class="container PanelContainer" style="width:600px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">اضافة دفع</div>
+            <div class="panel-body">
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OptionalNote, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.OptionalNote, new { htmlAttributes = new {
+                           @id = "OptionalNote",
+                           @class = "form-control",
+                           autofocus = "autofocus" } })
+
+                            @Html.ValidationMessageFor(model => model.OptionalNote)
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Price, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new {  @id = "Price", @class = "form-control",
+                              @maxlength = "1000",@type = "number",disabled = "disabled"} })
+
+                            @Html.ValidationMessageFor(model => model.Price)
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OldPayed, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.OldPayed, new { htmlAttributes = new {
+                           @id = "OldPayed",
+                           @class = "form-control",
+                           @maxlength = "1000",@type = "number",disabled = "disabled"} })
+
+                            @Html.ValidationMessageFor(model => model.OldPayed)
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OldRemaining, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.OldRemaining, new { htmlAttributes = new
+                       {
+                           @id = "OldRemaining",
+                           @class = "form-control",
+                           @maxlength = "1000",@type = "number",disabled = "disabled"} })
+
+                            @Html.ValidationMessageFor(model => model.OldRemaining)
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Amount, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new
+                       {
+                           @id = "Amount",
+                           @class = "form-control",
+                           @maxlength = "1000",@type = "number"} })
+
+                            @Html.ValidationMessageFor(model => model.Amount)
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Remaining, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Remaining, new { htmlAttributes = new
+                       {
+                           @id = "Remaining",
+                           @class = "form-control",
+                           @maxlength = "1000",@type = "number",disabled = "disabled"} })
+
+                            @Html.ValidationMessageFor(model => model.Remaining)
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RevenueDate, new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.RevenueDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(model => model.RevenueDate)
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        @{
+                            if (Model.isDone)
+                            {
+                                <input type="submit" value="اضافة" id="disabledAddButton" class="btn btn-success" style="width:100%" />
+                            }
+                            else
+                            {
+                                if (Model.Id == 0)
+                                {
+                                    <input type="submit" value="اضافة" class="btn btn-success" style="width:100%" />
+                                }
+                                else
+                                {
+                                    <input type="submit" value="تعديل" class="btn btn-success" style="width:100%" />
+                                }
+                            }
+
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+}
+    <script>
+        function notify(element) {
+            $(element).notify("هذا الاوردر منتهي",
+                { position: "top right", className: 'success', autoHideDelay: 3000 }
+            );
+        }
+
+        $(function () {
+            $('#disabledAddButton').click(
+                function () { notify($(this)) }
+            )
+        })
+    </script>
+<script>
+    $('#Amount').on('keyup blur click', calcAmount);
+
+    function calcAmount() {
+        var oldRemaining = parseFloat($('#OldRemaining').val(), 10);
+        var amount = parseFloat($('#Amount').val(), 10);
+        var oldPayed = parseFloat($('#OldPayed').val(), 10);
+        SetNumericValueToZeroIfEmpty('#Amount');
+
+        var remaining = oldRemaining - amount;
+        if (isNaN(remaining)) {
+            $('#Amount').val(0.0);
+            $('#OldRemaining').val(oldPayed);
+            $('#Remaining').val(oldRemaining);
+        }
+        else {
+            if (amount > oldRemaining) {
+                $('#Amount').val(oldRemaining);
+                $('#Remaining').val(0.0);
+            }
+            else {
+                $('#Remaining').val(oldRemaining - amount);
+            }
+
+        }
+    }
+</script>

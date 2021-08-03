@@ -1,0 +1,110 @@
+﻿@model CRM.MVC.ViewModels.ShowRevenuesExpenses
+@{
+    ViewBag.Title = "ShowRevenuesExpenses";
+}
+
+<!DOCTYPE html>
+
+@{
+    if (Model.isDone)
+    {
+        <div class="inactive-order animate__animated animate__fadeInLeft">
+            <div class="gradient-child">
+                <h2>مدفوعات و مصروفات</h2>
+                <h4>@Model.OrderName</h4>
+            </div>
+        </div>
+        <div class="alert alert-success"
+             style="margin-top:10px;margin-bottom:10px;direction:rtl;text-align:center;font-family:Tajawal;font-weight:bold"
+             role="alert">
+            هذا الاوردر منتهي
+        </div>
+    }
+    else
+    {
+        <div class="active-order animate__animated animate__fadeInLeft">
+            <div class="gradient-child">
+                <h2>مدفوعات و مصروفات</h2>
+                <h4>@Model.OrderName</h4>
+            </div>
+        </div>
+        <div class="alert alert-danger"
+             style="margin-top:10px;margin-bottom:10px;direction:rtl;text-align:center;font-family:Tajawal;font-weight:bold"
+             role="alert">
+            هذا الاوردر ما زال جاري
+        </div>
+    }
+}
+
+
+<ul class="nav nav-tabs nav-justified">
+    <li><a data-toggle="tab" href="#Reveneues">الوارد</a></li>
+    <li class="active"><a data-toggle="tab" href="#Expenses">الصادر</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="Reveneues" class="tab-pane fade in">
+        @Html.Partial("ViewOrdersRevenuesPartial", new ViewDataDictionary { { "orderId", Model.OrderId }, { "isdone", Model.isDone } })
+    </div>
+    <div id="Expenses" class="tab-pane fade in active">
+        @Html.Partial("ViewOrdersExpensesPartial", new ViewDataDictionary { { "orderId", Model.OrderId }, { "isdone", Model.isDone } })
+    </div>
+</div>
+@section scripts{
+    @*e.target // newly activated tab
+    e.relatedTarget // previous active tab*@
+    <script>
+        $(document).ready(function () {
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("href") // activated tab
+                alert(target);
+            });
+
+
+            console.log('ready');
+            var tab = $('.nav-tabs a[href="#Reveneues"]');
+            console.log(tab.text());
+            tab.click(function () {
+                console.log('hi');
+                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust(); 
+                console.log('hi3');
+            });
+
+            var tab2 = $('.nav-tabs a[href="#Expenses"]');
+            console.log(tab.text());
+            tab2.click(function () {
+                console.log('hi2');
+                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+                console.log('hi3');
+            });
+
+
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+            });
+ 
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var currentTab = $(e.target).text();
+                console.log('tab');
+                switch (currentTab) {
+                    case 'الصادر':
+                        console.log('صادر');
+                        var table = $('#expTable').DataTable();
+                        $('#container').css('display', 'block');
+                        table.columns.adjust().draw();
+                        break;
+                    case 'الوارد':
+                        console.log('وارد');
+                        var table = $('#revTable').DataTable();
+                        $('#container').css('display', 'block');
+                        table.columns.adjust().draw();
+                        break;
+                    default:
+
+                };
+            });
+        });
+    </script>
+}

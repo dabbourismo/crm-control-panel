@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F10DF983-D543-4D11-8175-CC7A3ABA7AD3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CRM.Repository</RootNamespace>
+    <AssemblyName>CRM.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdlinkContext.cs" />
+    <Compile Include="ClientRepositorys\ClientRepository.cs" />
+    <Compile Include="ClientRepositorys\IClientRepository.cs" />
+    <Compile Include="CompanyExpenseRepositorys\ICompanyExpensesRepository.cs" />
+    <Compile Include="CompanyExpenseRepositorys\CompanyExpensesRepository.cs" />
+    <Compile Include="GenericRepository.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Migrations\202005132215312_CreateDatabase.cs" />
+    <Compile Include="Migrations\202005132215312_CreateDatabase.designer.cs">
+      <DependentUpon>202005132215312_CreateDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005151509155_ReCreateDatabase.cs" />
+    <Compile Include="Migrations\202005151509155_ReCreateDatabase.designer.cs">
+      <DependentUpon>202005151509155_ReCreateDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005162124232_SetTypeLength.cs" />
+    <Compile Include="Migrations\202005162124232_SetTypeLength.designer.cs">
+      <DependentUpon>202005162124232_SetTypeLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005162131470_PopulateDatabaseWithData.cs" />
+    <Compile Include="Migrations\202005162131470_PopulateDatabaseWithData.designer.cs">
+      <DependentUpon>202005162131470_PopulateDatabaseWithData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005222346270_populateMoreClientsData.cs" />
+    <Compile Include="Migrations\202005222346270_populateMoreClientsData.designer.cs">
+      <DependentUpon>202005222346270_populateMoreClientsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005231406117_PopulateOrdersTable.cs" />
+    <Compile Include="Migrations\202005231406117_PopulateOrdersTable.designer.cs">
+      <DependentUpon>202005231406117_PopulateOrdersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005232349207_RemaneServiceType.cs" />
+    <Compile Include="Migrations\202005232349207_RemaneServiceType.designer.cs">
+      <DependentUpon>202005232349207_RemaneServiceType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005272001502_updateExpensesName.cs" />
+    <Compile Include="Migrations\202005272001502_updateExpensesName.designer.cs">
+      <DependentUpon>202005272001502_updateExpensesName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005282112152_RenameExpensesType.cs" />
+    <Compile Include="Migrations\202005282112152_RenameExpensesType.designer.cs">
+      <DependentUpon>202005282112152_RenameExpensesType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005291751504_OldOrderTableAdding.cs" />
+    <Compile Include="Migrations\202005291751504_OldOrderTableAdding.designer.cs">
+      <DependentUpon>202005291751504_OldOrderTableAdding.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105271845508_add-rating.cs" />
+    <Compile Include="Migrations\202105271845508_add-rating.designer.cs">
+      <DependentUpon>202105271845508_add-rating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="OldOrderRepositorys\IOldOrderRepository.cs" />
+    <Compile Include="OldOrderRepositorys\OldOrderRepository.cs" />
+    <Compile Include="OrderExpenseRepositorys\IOrderExpenseRepository.cs" />
+    <Compile Include="OrderExpenseRepositorys\OrderExpenseRepository.cs" />
+    <Compile Include="OrderRepositorys\IOrderRepository.cs" />
+    <Compile Include="OrderRepositorys\OrderRepository.cs" />
+    <Compile Include="OrderRevenueRepositorys\IOrderRevenueRepository.cs" />
+    <Compile Include="OrderRevenueRepositorys\OrderRevenueRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CRM.Models\CRM.Models.csproj">
+      <Project>{d20f5a7e-2c2b-4d29-a89e-63882c0ed70e}</Project>
+      <Name>CRM.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202005132215312_CreateDatabase.resx">
+      <DependentUpon>202005132215312_CreateDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005151509155_ReCreateDatabase.resx">
+      <DependentUpon>202005151509155_ReCreateDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005162124232_SetTypeLength.resx">
+      <DependentUpon>202005162124232_SetTypeLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005162131470_PopulateDatabaseWithData.resx">
+      <DependentUpon>202005162131470_PopulateDatabaseWithData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005222346270_populateMoreClientsData.resx">
+      <DependentUpon>202005222346270_populateMoreClientsData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005231406117_PopulateOrdersTable.resx">
+      <DependentUpon>202005231406117_PopulateOrdersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005232349207_RemaneServiceType.resx">
+      <DependentUpon>202005232349207_RemaneServiceType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005272001502_updateExpensesName.resx">
+      <DependentUpon>202005272001502_updateExpensesName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005282112152_RenameExpensesType.resx">
+      <DependentUpon>202005282112152_RenameExpensesType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005291751504_OldOrderTableAdding.resx">
+      <DependentUpon>202005291751504_OldOrderTableAdding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105271845508_add-rating.resx">
+      <DependentUpon>202105271845508_add-rating.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DependancyInversionPrinciple.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
